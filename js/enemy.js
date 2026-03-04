@@ -87,6 +87,7 @@ const ENERGY_VAMPIRE_BAT_DATA = {
     attackDamageMax: 25,
     specialAbility: 'defend',
     canDefend: true,
+    projectileType: 'vampire-bat',
     sprites: {
         idle: 'assets/enemies/Energy Vampire Bat/Energy Vampire Bat.gif',
         attack: 'assets/enemies/Energy Vampire Bat/Energy Vampire Bat.gif',
@@ -107,6 +108,7 @@ const LAND_ALIEN_DATA = {
     canDefend: true,
     canEvade: true,
     evasionChance: 0.20,
+    projectileType: 'alien',
     sprites: {
         idle: 'assets/enemies/Land Alien/alien-idle-animated.gif',
         attack: 'assets/enemies/Land Alien/alien-walk-animated.gif',
@@ -129,6 +131,7 @@ const FLYING_PROCRASTINATOR_DATA = {
     canDefend: true,
     canDaze: true,
     dazeChance: 0.25,
+    projectileType: 'procrastinator',
     sprites: {
         idle: 'assets/enemies/Flying Procrastinator/Flying Procrastinator.gif',
         attack: 'assets/enemies/Flying Procrastinator/Flying Procrastinator.gif',
@@ -152,6 +155,7 @@ const SENTRY_DRONE_DATA = {
     healAmount: 20,
     canStun: true,
     stunChance: 0.30,
+    projectileType: 'drone',
     sprites: {
         idle: 'assets/enemies/Sentry Drone/Sentry Drone.gif',
         attack: 'assets/enemies/Sentry Drone/Sentry Drone Projectile.gif',
@@ -176,6 +180,7 @@ const SELF_DOUBT_DRONE_DATA = {
     healAmount: 30,
     canStun: true,
     stunChance: 0.30,
+    projectileType: 'self-doubt-drone',
     sprites: {
         idle: 'assets/enemies/Self Doubt Drone/Self Doubt Drone.gif',
         attack: 'assets/enemies/Self Doubt Drone/Self Doubt Drone Projectile.gif',

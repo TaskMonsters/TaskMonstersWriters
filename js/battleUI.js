@@ -1761,10 +1761,12 @@ async function playMedusaProjectile(startElement, targetElement) {
     projectile.style.top = startRect.top + startRect.height / 2 - 30 + 'px';
     projectile.style.width = '60px';
     projectile.style.height = '60px';
-    projectile.style.fontSize = '60px';
-    projectile.textContent = '👁️';
+    projectile.style.backgroundImage = 'url("assets/enemy-projectiles/Medusa Projectile.png")';
+    projectile.style.backgroundSize = 'contain';
+    projectile.style.backgroundRepeat = 'no-repeat';
+    projectile.style.imageRendering = 'pixelated';
     projectile.style.zIndex = '10000';
-    projectile.style.filter = 'hue-rotate(270deg) brightness(1.5)';
+    projectile.style.filter = 'drop-shadow(0 0 8px rgba(100, 255, 100, 0.8))';
 
     // Animate projectile movement
     const duration = 600;
@@ -1812,8 +1814,10 @@ async function playMushroomProjectile(startElement, targetElement) {
     projectile.style.top = startRect.top + startRect.height / 2 - 25 + 'px';
     projectile.style.width = '50px';
     projectile.style.height = '50px';
-    projectile.style.fontSize = '50px';
-    projectile.textContent = '🍄';
+    projectile.style.backgroundImage = 'url("assets/enemy-projectiles/Mushroom Guard Projectile.gif")';
+    projectile.style.backgroundSize = 'contain';
+    projectile.style.backgroundRepeat = 'no-repeat';
+    projectile.style.imageRendering = 'pixelated';
     projectile.style.zIndex = '10000';
 
     // Animate projectile movement
@@ -1849,6 +1853,65 @@ async function playMushroomProjectile(startElement, targetElement) {
 // Export functions
 window.playMedusaProjectile = playMedusaProjectile;
 window.playMushroomProjectile = playMushroomProjectile;
+// ─── Generic CSS-class-based projectile dispatcher ───────────────────────────
+// Handles: drone, self-doubt-drone, procrastinator, vampire-bat, fly-spit,
+//          phantom, medusa, mushroom, alien
+// Each type maps to a .projectile-{type} CSS class in battle.css which
+// already has the correct background-image asset set.
+async function createProjectile(type, fromElement, toElement) {
+    if (!fromElement || !toElement) return;
+
+    const startRect = fromElement.getBoundingClientRect();
+    const targetRect = toElement.getBoundingClientRect();
+
+    const projectile = document.createElement('div');
+    projectile.className = `projectile projectile-${type}`;
+    projectile.style.position = 'fixed';
+    projectile.style.zIndex = '10000';
+    projectile.style.pointerEvents = 'none';
+
+    // Start position — centred on the enemy sprite
+    const startX = startRect.left + startRect.width / 2;
+    const startY = startRect.top + startRect.height / 2;
+    projectile.style.left = startX + 'px';
+    projectile.style.top  = startY + 'px';
+
+    document.body.appendChild(projectile);
+
+    // Animate to hero sprite using rAF for smooth motion
+    const duration = 550; // ms
+    const startTime = Date.now();
+    const endX = targetRect.left + targetRect.width / 2;
+    const endY = targetRect.top  + targetRect.height / 2;
+
+    await new Promise((resolve) => {
+        function animate() {
+            const elapsed  = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+
+            projectile.style.left = (startX + (endX - startX) * eased) + 'px';
+            projectile.style.top  = (startY + (endY - startY) * eased) + 'px';
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                // Brief impact flash then remove
+                projectile.style.opacity = '0';
+                projectile.style.transition = 'opacity 0.15s ease';
+                setTimeout(() => {
+                    if (projectile.parentNode) projectile.remove();
+                    resolve();
+                }, 150);
+            }
+        }
+        requestAnimationFrame(animate);
+    });
+}
+
+window.createProjectile = createProjectile;
+
 
 // Defend animation (yellow shield glow)
 async function showDefendAnimation(targetElementId) {

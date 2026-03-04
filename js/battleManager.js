@@ -2516,35 +2516,44 @@ class BattleManager {
         // Normal attack
         await playEnemyAnimation(this.enemy, 'attack1', 600);
         
-        // Lazy Bat no longer shoots projectiles (removed per user request)
-        
-        // If ghost enemy, shoot waveform projectile
-        if (this.enemy.projectileType === 'waveform') {
+        // ── Enemy projectile dispatch ─────────────────────────────────────────
+        // Each enemy's projectileType determines which animation fires.
+        // window.createProjectile() handles all CSS-class-based types.
+        if (this.enemy.projectileType) {
             const enemySprite = document.getElementById('enemySprite');
-            const heroSprite = document.getElementById('heroSprite');
-            await playWaveformAnimation(enemySprite, heroSprite);
-        }
-        
-        // If alien enemy, shoot alien projectile
-        if (this.enemy.projectileType === 'alien') {
-            const enemySprite = document.getElementById('enemySprite');
-            const heroSprite = document.getElementById('heroSprite');
-            await playAlienProjectile(enemySprite, heroSprite);
-        }
-        
-        // If Fire Skull, show explosion animation
-        if (this.enemy.projectileType === 'fire-explosion') {
-            const enemySprite = document.getElementById('enemySprite');
-            const heroSprite = document.getElementById('heroSprite');
-            await playFireExplosion(enemySprite, heroSprite);
-        }
-        
-        // If Fly enemy, shoot fly spit projectile
-        if (this.enemy.projectileType === 'fly-spit') {
-            const enemySprite = document.getElementById('enemySprite');
-            const heroSprite = document.getElementById('heroSprite');
-            if (window.createProjectile) {
-                await window.createProjectile('fly-spit', enemySprite, heroSprite);
+            const heroSprite  = document.getElementById('heroSprite');
+            if (enemySprite && heroSprite) {
+                switch (this.enemy.projectileType) {
+                    case 'waveform':
+                        await playWaveformAnimation(enemySprite, heroSprite);
+                        break;
+                    case 'alien':
+                        await playAlienProjectile(enemySprite, heroSprite);
+                        break;
+                    case 'fire-explosion':
+                        await playFireExplosion(enemySprite, heroSprite);
+                        break;
+                    case 'medusa':
+                        await playMedusaProjectile(enemySprite, heroSprite);
+                        break;
+                    case 'mushroom':
+                        await playMushroomProjectile(enemySprite, heroSprite);
+                        break;
+                    // CSS-class-based types — handled by window.createProjectile()
+                    case 'drone':
+                    case 'self-doubt-drone':
+                    case 'procrastinator':
+                    case 'vampire-bat':
+                    case 'fly-spit':
+                    case 'phantom':
+                        if (window.createProjectile) {
+                            await window.createProjectile(this.enemy.projectileType, enemySprite, heroSprite);
+                        }
+                        break;
+                    default:
+                        // Unknown type — no projectile animation
+                        break;
+                }
             }
         }
 
