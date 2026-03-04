@@ -692,12 +692,12 @@ class BattleManager {
             window.audioManager.playSound('spark_attack', 0.8);
         }
 
-        // Calculate damage (35-45 range, melee strike - INCREASED)
-        let damage = Math.floor(Math.random() * 11) + 35; // Random between 35-45
+        // Calculate damage (28-35 range, lightning strike)
+        let damage = Math.floor(Math.random() * 8) + 28; // Random between 28-35
         damage = this.applyDamageBoost(damage); // Apply Battle Glove boost
         const isDead = this.enemy.takeDamage(damage);
         
-        // Play critical hit sound for damage >= 10 (Spark always deals 18-20)
+        // Play critical hit sound for damage >= 10 (Spark always deals 28-35)
         if (window.audioManager && damage >= 10) {
             window.audioManager.playSound('critical_hit', 0.8);
         }
@@ -705,7 +705,9 @@ class BattleManager {
         // Play enemy hurt animation
         await playEnemyAnimation(this.enemy, 'hurt', 300);
         
-        addBattleLog(`⚡ Spark dealt ${damage} damage!`);
+        // Stun enemy for 1 turn — enemy skips their next attack AND special attack
+        this.enemyFrozenTurns = 1;
+        addBattleLog(`⚡ Spark dealt ${damage} damage and stunned the enemy for 1 turn!`);
         updateBattleUI(this.hero, this.enemy);
 
         // Save game state

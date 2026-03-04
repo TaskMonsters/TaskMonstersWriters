@@ -10196,7 +10196,7 @@ input:checked + .toggle-slider:before {
                 cost: 40,
                 effect: 'heal',
                 value: 50,
-                levelRequired: 8   // Unlocks with Sentry Drone & Flying Procrastinator
+                levelRequired: 10  // Unlocks at Level 10   // Unlocks with Sentry Drone & Flying Procrastinator
             },
             defense_refill: {
                 id: 'defense_refill',
@@ -10246,26 +10246,28 @@ input:checked + .toggle-slider:before {
                 id: 'fireball',
                 name: 'Fireball',
                 emoji: '🔥',
-                description: 'Explosive projectile dealing 15-20 damage (Max: 10)',
+                description: 'Explosive projectile dealing 25-30 damage (Max: 10)',
                 cost: 45,
                 effect: 'attack',
-                value: 20,
-                minDamage: 15,
-                maxDamage: 20,
-                levelRequired: 8,  // Unlocks with Sentry Drone & Flying Procrastinator
+                value: 30,
+                minDamage: 25,
+                maxDamage: 30,
+                levelRequired: 15, // Unlocks at Level 15,  // Unlocks with Sentry Drone & Flying Procrastinator
                 maxQuantity: 10
             },
             spark: {
                 id: 'spark',
                 name: 'Spark',
                 emoji: '⚡',
-                description: 'Melee strike dealing 18-25 damage (Max: 10)',
+                description: 'Lightning strike dealing 28-35 damage + stuns enemy for 1 turn (Max: 10)',
                 cost: 50,
                 effect: 'attack',
-                value: 25,
-                minDamage: 18,
-                maxDamage: 25,
-                levelRequired: 8,  // Unlocks with Sentry Drone & Flying Procrastinator
+                value: 35,
+                minDamage: 28,
+                maxDamage: 35,
+                stunEnemy: true,
+                stunTurns: 1,
+                levelRequired: 17, // Unlocks at Level 17
                 maxQuantity: 10
             },
             invisibility_cloak: {
@@ -10275,7 +10277,7 @@ input:checked + .toggle-slider:before {
                 description: 'Allows your monster to evade the next enemy attack',
                 cost: 40,
                 effect: 'evade',
-                levelRequired: 8   // Unlocks with Sentry Drone (stun beam threat)
+                levelRequired: 12  // Unlocks at Level 12   // Unlocks with Sentry Drone (stun beam threat)
             },
             freeze: {
                 id: 'freeze',
