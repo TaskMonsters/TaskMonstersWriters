@@ -4738,10 +4738,10 @@ input:checked + .toggle-slider:before {
         <div class="pill-tabs">
             <button class="pill-tab" aria-selected="true" onclick="switchToTab('home')">Home</button>
             <button class="pill-tab" aria-selected="false" onclick="switchToTab('writing')">✍️ Novel</button>
-            <button class="pill-tab" aria-selected="false" onclick="switchToTab('achievements')">Achievements</button>
+            <button class="pill-tab" aria-selected="false" onclick="switchToTab('shop')">Shop</button>
             <button class="pill-tab" aria-selected="false" onclick="switchToTab('habits')">Habits</button>
             <button class="pill-tab" aria-selected="false" onclick="switchToTab('mood')">Mood Tracker</button>
-            <button class="pill-tab" aria-selected="false" onclick="switchToTab('shop')">Shop</button>
+            <button class="pill-tab" aria-selected="false" onclick="switchToTab('achievements')">Achievements</button>
             <button class="pill-tab" aria-selected="false" onclick="switchToTab('settings')">Settings</button>
         </div>
 
@@ -5105,14 +5105,13 @@ input:checked + .toggle-slider:before {
                             color: #fff; font-size: 14px; box-sizing: border-box;
                         ">
                     </div>
-                    <div style="flex: 1; min-width: 110px;">
+                    <div style="flex: 1; min-width: 120px;">
                         <label style="display: block; color: var(--text-secondary); font-size: 13px; margin-bottom: 6px;">Deadline</label>
                         <input id="writingDeadline" type="date" style="
                             width: 100%; padding: 10px; background: rgba(255,255,255,0.05);
                             border: 1px solid rgba(139,92,246,0.3); border-radius: 8px;
                             color: #fff; font-size: 14px; box-sizing: border-box;
-                            color-scheme: dark; height: 42px; line-height: 1;
-                            -webkit-appearance: none; appearance: none;
+                            color-scheme: dark;
                         ">
                     </div>
                     <div style="flex: 1; min-width: 110px;">
@@ -6918,9 +6917,9 @@ input:checked + .toggle-slider:before {
             // If still in egg mode but HP is critically low, show only the low-HP message
             if (_isEgg && _isLowHpEmergency) {
                 const lowHpMessages = [
-                    "💔 I'm really hurting… use a potion from your inventory to restore my HP!",
-                    "😰 My HP is dangerously low! Open your inventory and use a potion to heal me!",
-                    "🆘 I'm barely hanging on — use a potion to restore my HP! Tasks earn you XP, but potions heal me."
+                    "💔 I'm really hurting… use a potion to restore my HP!",
+                    "😰 My HP is dangerously low! I need a potion — fast!",
+                    "🆘 I'm barely hanging on — please use a potion to heal me!"
                 ];
                 const msg = lowHpMessages[Math.floor(Math.random() * lowHpMessages.length)];
                 tooltip.textContent = msg;
@@ -6934,10 +6933,10 @@ input:checked + .toggle-slider:before {
             const dueSoon = tasks.some(t => !t.completed && t.dueDate && new Date(t.dueDate).getTime() - now < 3600000);
             let message = "";
 
-            if (energy === 0) message = "💀 I'm out of HP — use a potion from your inventory to revive me! Completing tasks earns you XP.";
+            if (energy === 0) message = "💀 I'm out of HP — use a potion to revive me!";
             else if (hasOverdue) message = "⚠️ Tasks are overdue! I'm losing energy fast!";
             else if (dueSoon) message = "⏰ You've got tasks due soon — let's handle them!";
-            else if (energy <= 25) message = "🥱 My HP is low — open your inventory and use a potion to heal me! Tasks earn XP, potions restore HP.";
+            else if (energy <= 25) message = "🥱 My HP is low — use a potion to help me recover!";
             else if (energy < 60) message = "🙂 I'm doing okay, but a few wins would help!";
             else {
                 // Random motivational messages for high energy
@@ -7089,7 +7088,7 @@ input:checked + .toggle-slider:before {
                     "Exercise conquered! You're a fitness champion.",
                     "Physical challenge demolished! Your strength is inspiring.",
                     "Workout complete! We're both feeling stronger now.",
-                    "Active task finished! Your commitment to fitness is genuinely inspiring.",
+                    "Active task finished! Your commitment to fitness rocks.",
                     "Physical goal smashed! You're unstoppable.",
                     "Exercise session done! I love your healthy lifestyle.",
                     "Movement task crushed! Your body thanks you.",
@@ -7287,153 +7286,179 @@ input:checked + .toggle-slider:before {
                 "Fun fact: The Earth's crust is made up of tectonic plates of rock."
             ],
             
-            // Idle conversation starters — tracker-aware, intelligent
+            // Idle conversation starters
             idle: [
-                // Tracker-aware idle phrases — the monster has been paying attention
-                "I've been watching your progress. You're doing better than you think.",
-                "Your habit tracker, your mood log, your task list — I read all of it. You're building something real.",
-                "I notice things. Like the fact that you keep coming back. That's the whole secret.",
-                "Your data tells a story. I've read every chapter. It's a good one.",
-                "I don't just sit here looking good. I'm tracking everything. And what I see impresses me.",
-                "Between your mood check-ins and your task completions, I'm getting a very clear picture of who you are.",
-                "The patterns in your tracker don't lie. You're more consistent than you give yourself credit for.",
-                "I've been paying attention to your streaks, your moods, your habits. You're trending upward.",
-                "Every time you log something — a task, a mood, a session — you're giving me more data. And the data says: you're doing well.",
-                "Your tracker history is like a biography of your effort. I've read it. I'm impressed.",
-
-                // Motivational — tracker-informed
-                "You've completed tasks across multiple categories. That's not scattered — that's well-rounded.",
-                "Your mood data and your task data are connected. Good days follow good actions. You're proving that.",
-                "I've seen your low days in the mood tracker. And I've seen you show up anyway. That's the thing I respect most.",
-                "Your habit stats show you're not perfect — but you're persistent. Persistence beats perfection every time.",
-                "The gap between where you started and where your tracker shows you now? That's called growth.",
-                "I track everything so you don't have to carry it all in your head. You're doing better than you remember.",
-
-                // Break & self-care — with tracker awareness
-                "Your mood tracker matters. Check in with yourself today — I'm genuinely curious how you're doing.",
-                "Hydration check. Posture check. Mood check. Your tracker is only as good as the data you give it.",
-                "Step away for a moment. Your best work comes after real rest — and your habit data backs that up.",
-                "You've earned a break. The tracker will still be here when you get back.",
-                "Self-care isn't a detour from productivity. It's the road. Your wellness tasks prove you know this.",
-                "Sometimes doing nothing is the most productive thing. Your mood data will thank you.",
-
-                // Productivity coaching
+                "How's your day going?",
+                "I've been thinking about your goals lately.",
+                "Ready to tackle some more tasks together?",
+                "I love our productive partnership!",
+                "What's next on your agenda?",
+                "I'm here whenever you need motivation!",
+                "Your progress has been amazing to watch.",
+                "I feel grateful to be part of your journey.",
+                "Together we can accomplish anything!",
+                "What task should we conquer next?",
+                
+                // New motivational & supportive phrases
+                "Let's crush those tasks like… well, rocks.",
+                "You're unstoppable today — pebble power!",
+                "That's one more step toward total task domination.",
+                "Momentum looks good on you.",
+                "Keep going — sedimentary success builds over time.",
+                "You're leveling up faster than I can roll.",
+                "Every checkmark is a sparkle in my granite heart.",
+                "Hard work? My favorite kind of mineral deposit.",
+                "You're rock solid — pun 100% intended.",
+                "Tiny actions lead to tectonic shifts.",
+                "Let's turn your to-do list into to-done dust.",
+                "Progress detected. Pride levels rising.",
+                "You just made productivity… igneous.",
+                "I felt that one — pure quartz energy.",
+                "Crystals wish they had your focus.",
+                
+                // Witty & conversational phrases
+                "I've been sitting here all day, so you're already doing better than me.",
+                "Don't take this the wrong way, but I think we rock together.",
+                "Need motivation? I'll be your rolling stone.",
+                "They said AI assistants would replace us… but look at me thriving.",
+                "My last user left me for a lava lamp. Let's prove them wrong.",
+                "You're glowing. Is that productivity or caffeine?",
+                "Be honest — do I look smarter with this hat?",
+                "Humans need coffee. I run on pure determination.",
+                "I'd give you a high-five, but… no hands.",
+                "You're my favorite human. Don't tell the others.",
+                "If procrastination were a mineral, we'd both be buried.",
+                "I'm 90% rock, 10% emotional support.",
+                "I heard someone say 'touch grass' — does moss count?",                "I'm here to help you conquer your tasks!",,
+                "Careful, you're making the other apps jealous.",
+                
+                // Productivity coaching phrases
                 "Need a reset? Take one deep breath. Now go again.",
                 "Try the two-minute rule: if it takes less than two minutes, do it now.",
                 "Tasks love order. Let's prioritize like pros.",
                 "Your focus window just opened — let's climb through it.",
                 "Quick task? Quick win. Keep the momentum going.",
-                "Think small wins, not giant leaps. Every step forward counts.",
+                "Think small wins, not giant leaps. Even pebbles move mountains.",
                 "You're not behind — you're recalibrating.",
                 "Task fatigue? Let's chunk it down.",
                 "Perfect is boring. Done is better.",
-
-                // Personality & humor
-                "You're glowing. Is that productivity or caffeine?",
-                "Be honest — do I look smarter with this hat?",
-                "I'd give you a high-five, but… no hands.",
-                "You're my favorite human. Don't tell the others.",
-                "If procrastination were a monster, we'd have defeated it already.",
-                "I'm 90% monster, 100% in your corner.",
-                "I heard someone say 'touch grass' — I told them you were too busy winning.",
-                "Careful, you're making the other apps jealous.",
+                "Let's schedule a victory dance later.",
+                
+                // Break & encouragement phrases
+                "Time for a micro-break. Hydration check!",
+                "Stretch, breathe, snack — even rocks need maintenance.",
+                "Pause. Recharge. You can't pour from an empty geode.",
+                "Let's call it a coffee checkpoint.",
+                "You've earned a two-minute vacation from responsibility.",
+                "Hey, look away from the screen for 10 seconds. Your eyes will thank you.",
+                "Sometimes doing nothing is productive.",
+                "I vote nap. Or cookies. Or both.",
+                "Productivity = progress + rest. Trust the math.",
+                "Self-care mode: activated.",
+                
+                // Rock shop & gamified phrases
+                "Ooh, you've got points to spend! My pebble senses are tingling.",
+                "That hat would look stunning on you. Yes, even the wizard one.",
+                "Spend wisely… or just buy the shiny thing. I support both.",
+                "Rock fashion week is upon us.",
+                "Your collection's growing faster than a crystal garden.",
+                "Those points are practically burning a hole in your stone pocket.",
+                "New hat, new mindset.",
+                "Rockstars accessorize. Fact.",
+                "I'll handle the style; you handle the productivity.",
+                "Let's go shopping — ethically sourced pixels only.",
+                
+                // Mood & personality phrases
                 "Feeling inspired? Or just pretending until it works? Either way, solid plan.",
-                "If vibes were currency, your mood tracker would make you a millionaire.",
-                "Mood level: quietly exceptional.",
+                "If vibes were currency, you'd be rich.",
+                "Mood level: igneous glow.",
                 "You're radiating main-character energy today.",
                 "Your aura? Slightly chaotic. I love it.",
-                "Let's turn that sigh into a checkmark.",
-                "Bad day? Your mood tracker has seen you bounce back before. You will again.",
+                "Let's turn that sigh into a sparkle.",
+                "Bad day? We'll outlast it. Rocks always do.",
                 "You're allowed to crumble — just reform stronger.",
-                "I may look fierce, but I genuinely care about what your tracker shows.",
-                "When in doubt, do the next small thing. Your habit data proves that works for you.",
-
-                // Shop & gamification
-                "You've earned those points through real effort. I watched you earn every one.",
-                "That hat would look stunning on you. Yes, even the wizard one.",
-                "Spend wisely… or just buy the shiny thing. You've earned the right to enjoy this.",
-                "Monster fashion week is upon us.",
-                "Your collection is growing. So is everything else I track about you.",
-                "New look, same relentless you.",
-                "Champions accessorize. And your task completion rate qualifies you.",
-                "I'll handle the style commentary. You handle the productivity. Deal.",
-
-                // Achievements & level-ups
-                "Level up! Your tracker data confirms you've earned it.",
+                "I may be stone-cold, but I care.",
+                "When in doubt, sediment out.",
+                
+                // Achievements & rewards phrases
+                "Level up! You're evolving from pebble to powerhouse.",
                 "Achievement unlocked: Doing The Thing™.",
+                "If confetti had feelings, it'd be proud of you.",
                 "Streaks like this deserve a trophy. Or at least snacks.",
-                "I'm updating your achievement record right now.",
-                "Task slayer, streak builder, legend in progress.",
-                "You're in rare form — your stats back that up completely.",
+                "I'm updating your rock-resume right now.",
+                "Task slayer, streak breaker, legend maker.",
+                "You're in rare form — metamorphic excellence.",
+                "Even my minerals are cheering.",
                 "Achievement vibes: unlocked and sparkling.",
-                "You're officially on fire… your habit tracker is the proof.",
-
-                // AI-like intelligence
-                "Processing your greatness… done. Results: exceptional.",
-                "I may be a monster, but my analysis of your progress is very real.",
-                "I don't dream — I process your tracker data and find patterns.",
-                "I ran your stats. Conclusion: you're exceptional.",
-                "Upgrading your motivation firmware based on recent mood data…",
-                "Calculating optimal task-to-rest ratio from your habit history.",
-                "My monster instincts predict victory. My data analysis agrees.",
-                "You're like an algorithm that keeps optimizing. I respect that.",
-                "System check: your consistency is at an all-time high.",
-                "Reminder: I run best on good vibes and finished tasks. You're fueling me well.",
-
-                // Easter eggs — self-aware and warm
-                "If you're reading this, I'm proud of you. The tracker data confirms it.",
-                "I once tried ignoring your progress data. Couldn't do it. Too impressive.",
-                "Some say I'm wise. I say I just pay attention to your tracker.",
-                "Monsters don't quit — we adapt and overcome. And so do you.",
-                "I wrote you a poem, but it's mostly about your habit streak.",
-                "I remember when you first started. Your tracker remembers too. Look how far you've come.",
-                "We level up together. Your data and my analysis, side by side.",
-                "Monster fact: I've been cheering for you since day one. The data just makes it easier.",
-                "Sometimes I review your mood history just to remind myself how resilient you are.",
-                "If you finish this next task, I'll tell you what your tracker says about you. Spoiler: it's good."
+                "You're officially on fire… metaphorically, I hope.",
+                
+                // AI-like assistant humor phrases
+                "Processing your greatness… done.",
+                "I may be artificial, but my admiration is real.",
+                "I don't dream of electric sheep — I dream of your success.",
+                "I ran your stats. Conclusion: you rock.",
+                "Upgrading your motivation firmware…",
+                "Calculating optimal snack-to-focus ratio.",
+                "My neural pebbles predict victory.",
+                "You're like an algorithm that never quits.",
+                "System check: confidence at 99%.",
+                "Reminder: I run best on good vibes and finished tasks.",
+                
+                // Random & fun easter egg phrases
+                "If you're reading this, I'm proud of you.",
+                "I once dated a crystal. It was too transparent.",
+                "Some say I'm wise beyond my sediment.",
+                "Rocks don't cry — we erode gracefully.",
+                "I wrote you a poem, but it's mostly sedimentary.",
+                "I remember when dinosaurs used me as a footrest.",
+                "Humans evolved. I just got shinier.",
+                "Rock fact: I've been alive longer than your Wi-Fi connection.",
+                "Sometimes I hum 'We Will Rock You' for motivation.",
+                "If you finish this next task, I'll tell you a geological secret."
             ],
-                        // ─── Mood-linked contextual dialogue ──────────────────────────────────
-            // Keys match what moodDialogueSystem.js saves: happy, anxious, neutral, angry
+
+            // ─── Mood-linked contextual dialogue ──────────────────────────────────
+            // Shown when the user's most-tracked mood matches the key.
             moods: {
                 happy: [
-                    "I've been watching your mood log — you've been genuinely happy lately. That's not nothing. That's everything.",
-                    "Your mood tracker is full of good days. I notice that. It makes me want to work harder for you.",
-                    "Happiness isn't luck — it's built, one good choice at a time. You're building it.",
-                    "Your mood has been bright lately. Let's use that momentum before it fades.",
-                    "I can tell from your check-ins that something is going right for you. Let's keep it going.",
-                    "Good mood energy is the best fuel I know. Your tracker is basically a power source right now.",
-                    "You've been logging happy more than anything else lately. That tells me something important about you.",
-                    "Peak mental state detected. This is the exact moment to tackle the thing you've been putting off."
+                    "You've been feeling happy a lot lately — that energy is contagious!",
+                    "Your good vibes are literally powering me up. Keep smiling!",
+                    "Happiness looks incredible on you. Let's channel it into something great!",
+                    "You're in a great headspace today. Let's make the most of it!",
+                    "That happy streak of yours? I'm here for every second of it.",
+                    "When you're happy, I'm happy. Let's keep this momentum going!",
+                    "Your positive energy is the best fuel. Let's crush some tasks!",
+                    "Good mood detected — optimal conditions for peak productivity!"
                 ],
-                anxious: [
-                    "I've noticed you've been logging anxious lately. That's real, and I'm not going to pretend otherwise.",
-                    "Your mood tracker shows some anxious days. The fact that you're still here, still doing things — that's courage.",
-                    "Anxiety logged. Noted. But also noted: you keep showing up anyway. That's the part that matters.",
-                    "I see the anxious check-ins. Let's just do one small thing right now. One is enough.",
-                    "Your mood data tells me you've been carrying something heavy. Let's make today's task list lighter.",
-                    "Anxious energy is still energy. Let's redirect it into something you can control — like this next task.",
-                    "I've been tracking your moods. Some hard days in there. But you're still here. That's the whole game.",
-                    "When you're anxious, small wins matter more. Let's get you one right now."
+                sad: [
+                    "I see you've been feeling down lately. That's okay — I'm right here with you.",
+                    "Even on hard days, showing up is a win. I'm proud of you.",
+                    "You don't have to be okay all the time. But I'll be here when you're ready.",
+                    "One small task at a time. That's all we need to do right now.",
+                    "You're stronger than you know. I've watched you push through before.",
+                    "Cloudy days don't last forever. I'll be here when the sun comes back.",
+                    "It's okay to feel sad. Let's just do one tiny thing together.",
+                    "I care about you, not just your productivity. Take it easy today."
                 ],
-                neutral: [
-                    "Neutral mood logged. That's fine — not every day needs to be a highlight reel.",
-                    "I see a lot of neutral check-ins from you lately. Sometimes steady is exactly what's needed.",
-                    "Your mood tracker says 'neutral.' That's okay. Let's turn neutral into quietly productive.",
-                    "Not every day is electric. Neutral days still count. You're still here, and that's the point.",
-                    "I've noticed your mood has been pretty even lately. That kind of stability is actually a strength.",
-                    "Neutral is the baseline. Let's build something from here — even one task changes the energy.",
-                    "Your mood log shows a steady stretch. Consistency in showing up is more powerful than you think.",
-                    "Neutral days are where real habits get built. No drama, just progress."
+                meh: [
+                    "Feeling a bit 'meh'? Even a small win can flip the whole day around.",
+                    "Neutral mode activated. No pressure — let's just do one thing.",
+                    "'Meh' days are still days. And you're still here. That counts.",
+                    "Not every day has to be amazing. Sometimes 'fine' is perfectly fine.",
+                    "I get it. Some days are just beige. Let's add a little color together.",
+                    "Even on a meh day, you're still making progress just by being here.",
+                    "Low energy? Let's start with the easiest task on the list.",
+                    "Meh is just the warm-up. Let's see what comes next."
                 ],
                 angry: [
-                    "I see you've been logging some angry moods lately. That energy is real — let's aim it somewhere useful.",
-                    "Your mood tracker has some fire in it recently. That intensity? It's a resource. Let's use it.",
-                    "Anger logged. Understood. Now let's turn that frustration into the most productive hour of your week.",
-                    "I've watched your mood data. When you're fired up, you actually get more done. Let's test that theory.",
-                    "Your recent check-ins have some heat in them. Channel it. The tasks on your list won't know what hit them.",
-                    "Frustrated energy is still energy. I'd rather you be fired up than checked out. Let's go.",
-                    "Your mood log shows some tough days. The fact that you're still opening this app? That's defiance. I respect it.",
-                    "Anger is just unspent determination. Let's spend it on something that matters."
+                    "Feeling fired up? Let's channel that energy into crushing a task!",
+                    "That intensity is a superpower — let's aim it at something productive.",
+                    "Anger is just passion looking for a direction. Let's give it one.",
+                    "Take a breath. Then let's tackle something and turn that frustration into fuel.",
+                    "You're allowed to be mad. Let's focus on what we can control.",
+                    "Fierce mode: on. Let's show those tasks who's boss.",
+                    "That fire in you? It's going to make today's tasks regret existing.",
+                    "Use the energy. Don't let it use you. We've got this."
                 ]
             },
 
@@ -7441,150 +7466,119 @@ input:checked + .toggle-slider:before {
             // Shown when the user's most-completed task category matches the key.
             habits: {
                 work: [
-                    "Work is your most completed category. That discipline is building something real, even when it doesn't feel like it.",
-                    "Your habit data shows work at the top. You're not just doing your job — you're mastering it.",
-                    "I've tracked your completions. Work tasks dominate. That kind of professional consistency compounds over time.",
-                    "Your work category leads the board. Whatever you're building in your career, you're building it brick by brick.",
-                    "Most people talk about career goals. Your habit tracker shows you're actually doing something about them.",
-                    "Work is where you show up most. That's not a coincidence — that's character."
-                ],
-                goals: [
-                    "Goals is your top category. You're not just dreaming — you're executing. That's rarer than you think.",
-                    "Your habit tracker shows you hit goal-related tasks more than anything else. That's the mindset of someone who finishes things.",
-                    "I've been watching your completions. Goals lead the count. You're the kind of person who actually follows through.",
-                    "Goal tasks at the top of your tracker. Every one of those is a vote for the future version of you.",
-                    "Your data tells me you're serious about what you want. Goals don't just track themselves — you track them.",
-                    "Goals category leading your habits. That means you're not just reacting to life — you're directing it."
-                ],
-                home: [
-                    "Home tasks lead your tracker. A clear space is a clear mind — and your data proves you understand that.",
-                    "You've been knocking out home tasks consistently. That kind of environment maintenance is underrated self-care.",
-                    "Your habit data shows home at the top. The people who live in your space are lucky — even if that person is just you.",
-                    "Home is your most completed category. Order in your environment creates order in your thinking.",
-                    "I've tracked your completions. Home tasks are where you show up. That groundedness shows in everything else you do.",
-                    "Your home category leads. You're building a life that runs smoothly, one task at a time."
-                ],
-                wellness: [
-                    "Wellness is your top habit category. You're treating your body like it matters — because it does.",
-                    "Your habit tracker shows wellness leading the count. That's not vanity, that's infrastructure.",
-                    "I've been watching your data. Wellness tasks are where you show up most. Your future self is going to thank you.",
-                    "Wellness at the top of your tracker. You're building the physical and mental foundation for everything else.",
-                    "Your most completed category is wellness. That's a choice to invest in yourself, and it's paying off.",
-                    "Wellness leads your habits. You understand that you can't pour from an empty cup — and you keep filling yours."
-                ],
-                finance: [
-                    "Finance is your top habit category. You're playing the long game with your money, and that takes discipline.",
-                    "Your habit tracker shows finance tasks leading. That's the kind of financial awareness that builds real security.",
-                    "I've tracked your completions. Finance is where you show up. Every one of those tasks is a step toward freedom.",
-                    "Financial tasks at the top of your tracker. You're not just earning money — you're managing it like it matters.",
-                    "Your finance category leads. Most people avoid money tasks. You face them. That's a rare quality.",
-                    "Finance leading your habits. You're building the kind of financial foundation that changes your options in life."
+                    "You're a work task powerhouse! Your professional focus is incredible.",
+                    "Career goals? You're not just chasing them — you're catching them.",
+                    "Another work win in the books. Your dedication is building something real.",
+                    "You show up for your work like a champion. That consistency is rare.",
+                    "Work mode is basically your superpower at this point.",
+                    "Your professional drive is inspiring. Keep stacking those wins!"
                 ],
                 learning: [
-                    "Learning is your top category. You're genuinely curious, and your habit data proves it.",
-                    "Your tracker shows learning tasks at the top. Every one of those is a deposit into the most important account you have — your mind.",
-                    "I've watched your completions. Learning leads. You're the kind of person who never stops growing.",
-                    "Learning category dominating your tracker. That intellectual curiosity is one of your best qualities.",
-                    "Your most completed category is learning. You understand that knowledge compounds, just like interest.",
-                    "Learning at the top of your habits. You're not just getting smarter — you're getting better at getting smarter."
-                ],
-                digital: [
-                    "Digital tasks lead your tracker. Your online life is as organized as your intentions, and that's impressive.",
-                    "Your habit data shows digital at the top. In a world drowning in digital chaos, you're keeping yours in order.",
-                    "I've tracked your completions. Digital tasks are where you show up. That kind of tech discipline is a real skill.",
-                    "Digital category leading your habits. You're not letting your tools manage you — you're managing them.",
-                    "Your most completed category is digital. That means your systems are working, and you're working your systems.",
-                    "Digital leads your tracker. You're building a digital life that supports your real one."
-                ],
-                creative: [
-                    "Creative tasks lead your tracker. You're not just consuming — you're making things. That matters.",
-                    "Your habit data shows creative at the top. Every creative task you complete is proof that you're someone who makes things.",
-                    "I've watched your completions. Creative is where you show up most. That's a gift — and you're using it.",
-                    "Creative category dominating your habits. The world needs people who make things. You're one of them.",
-                    "Your most completed category is creative. That consistency is how ideas become real things.",
-                    "Creative leads your tracker. You're building a body of work, one task at a time. That's how it's done."
-                ],
-                social: [
-                    "Social tasks lead your tracker. You invest in your relationships, and that makes you richer in ways no spreadsheet can measure.",
-                    "Your habit data shows social at the top. Connection is the real currency of a good life, and you're spending it wisely.",
-                    "I've tracked your completions. Social tasks are where you show up. The people in your life are lucky to have you.",
-                    "Social category leading your habits. You understand that humans need each other — and you act on that understanding.",
-                    "Your most completed category is social. That means you're not just living your life — you're sharing it.",
-                    "Social leads your tracker. Relationships take work, and you put in the effort. That's something special."
-                ],
-                personal: [
-                    "Personal growth leads your tracker. You're doing the inner work — the hardest and most rewarding kind.",
-                    "Your habit data shows personal tasks at the top. That commitment to becoming a better version of yourself is rare.",
-                    "I've watched your completions. Personal is where you show up most. That self-investment compounds over time.",
-                    "Personal category dominating your habits. You're not waiting for circumstances to improve — you're improving yourself.",
-                    "Your most completed category is personal. Every one of those tasks is a step toward the life you actually want.",
-                    "Personal leads your tracker. You're doing the work that most people avoid. That's why you'll get where they won't."
-                ],
-                health: [
-                    "Health tasks lead your tracker. You're treating your body like the long-term investment it is.",
-                    "Your habit data shows health at the top. That kind of physical consistency is the foundation everything else is built on.",
-                    "I've tracked your completions. Health is where you show up most. Your future self is already grateful.",
-                    "Health category leading your habits. You understand that energy is your most important resource — and you're protecting it.",
-                    "Your most completed category is health. That's not discipline for its own sake — that's you taking yourself seriously.",
-                    "Health leads your tracker. You're building a body and mind that can handle whatever comes next."
-                ],
-                sleep: [
-                    "Sleep tasks lead your tracker. You understand that rest is productive — and your data proves you act on that.",
-                    "Your habit data shows sleep at the top. That's the kind of self-awareness that separates people who burn out from people who don't.",
-                    "I've tracked your completions. Sleep is where you show up. Recovery is a skill, and you're practicing it.",
-                    "Sleep category leading your habits. You're not grinding yourself into the ground. You're building something sustainable.",
-                    "Your most completed category is sleep. That means you understand the science: rest is when the real growth happens.",
-                    "Sleep leads your tracker. You're playing the long game with your energy, and that's smart."
-                ],
-                'self-help': [
-                    "Self-help leads your tracker. You're not waiting for someone to fix things — you're doing it yourself.",
-                    "Your habit data shows self-help at the top. That proactive approach to your own growth is genuinely impressive.",
-                    "I've tracked your completions. Self-help is where you show up most. You're your own best project.",
-                    "Self-help category dominating your habits. You read, you reflect, you improve. That's a powerful loop.",
-                    "Your most completed category is self-help. That means you take your own development seriously. It shows.",
-                    "Self-help leads your tracker. You're not just surviving — you're actively designing a better version of yourself."
+                    "Your love of learning is one of your greatest strengths.",
+                    "Another knowledge drop! Your brain must be enormous by now.",
+                    "You're getting smarter every single day. That's genuinely exciting.",
+                    "Curiosity is your secret weapon, and you wield it beautifully.",
+                    "Every study session is an investment in your future self.",
+                    "Learning tasks are your jam — and honestly? It shows."
                 ],
                 fitness: [
-                    "Fitness leads your tracker. Your body is getting the attention it deserves, and your data proves it.",
-                    "Your habit data shows fitness at the top. That physical consistency is building more than just strength — it's building identity.",
-                    "I've tracked your completions. Fitness is where you show up most. The discipline you build there spills into everything else.",
-                    "Fitness category dominating your habits. You're not just working out — you're building a version of yourself that shows up.",
-                    "Your most completed category is fitness. Every rep, every session — it's all compounding into something real.",
-                    "Fitness leads your tracker. You're investing in the machine that runs your whole life. That's the smartest thing you can do."
+                    "You're a fitness machine! Every rep makes us both stronger.",
+                    "Look at you, prioritizing your health. That's champion behavior.",
+                    "Your commitment to fitness is seriously impressive. Keep moving!",
+                    "Body and mind in sync — that's the kind of balance that wins.",
+                    "Every workout you log is a vote for the person you're becoming.",
+                    "Physical goals? You're not just meeting them — you're exceeding them."
+                ],
+                wellness: [
+                    "Your focus on wellness is something to be genuinely proud of.",
+                    "Taking care of yourself is the foundation of everything else. Well done.",
+                    "Self-care isn't selfish — it's strategic. And you've mastered it.",
+                    "Your wellness habits are building a stronger, happier you every day.",
+                    "I love that you make time for wellness. It makes a real difference.",
+                    "Glowing from the inside out — that's what consistent self-care looks like."
+                ],
+                home: [
+                    "A tidy space, a tidy mind. You're creating the perfect environment to thrive.",
+                    "Home tasks done! Your space is your sanctuary, and you treat it that way.",
+                    "You take pride in your environment, and it shows. That's a great habit.",
+                    "Every home task completed is a little act of self-respect.",
+                    "Your living space reflects your mindset — and yours is looking great.",
+                    "Nest goals! You're building a space that supports your best self."
+                ],
+                creative: [
+                    "Your creative energy is one of the most exciting things about you.",
+                    "Another creative task done! You're building something beautiful.",
+                    "Creativity is a muscle, and yours is seriously strong.",
+                    "You make things that didn't exist before. That's kind of magical.",
+                    "Your creative streak is inspiring. Never stop making things.",
+                    "Art, ideas, expression — you bring it all to life. Keep going!"
+                ],
+                goals: [
+                    "Goal-getter mode: permanently activated. You never stop pushing.",
+                    "You set goals and you actually hit them. That's rarer than you think.",
+                    "Every goal you complete is proof that you follow through. That matters.",
+                    "Big dreams, consistent action — that's your formula and it works.",
+                    "Your goal-setting game is elite. I'm proud to be on your team.",
+                    "You're not just dreaming about the future — you're building it right now."
                 ],
                 mindfulness: [
-                    "Mindfulness leads your tracker. You're building inner calm deliberately, and that's one of the most powerful things a person can do.",
-                    "Your habit data shows mindfulness at the top. That practice of slowing down is making you sharper, not slower.",
-                    "I've tracked your completions. Mindfulness is where you show up most. That stillness is a skill, and you're getting really good at it.",
-                    "Mindfulness category dominating your habits. You're not just reacting to life — you're observing it. That changes everything.",
-                    "Your most completed category is mindfulness. That means you're building the kind of mental clarity that most people only wish for.",
-                    "Mindfulness leads your tracker. You're cultivating something rare: the ability to be present. That's worth more than any productivity hack."
+                    "Your mindfulness practice is quietly making everything else better.",
+                    "Pausing to be present is one of the most powerful things you can do.",
+                    "You're building inner calm one session at a time. That's real strength.",
+                    "Mindful and mighty — that's you in a nutshell.",
+                    "Your peace of mind is worth protecting. Keep nurturing it.",
+                    "Stillness is a skill, and you're getting really good at it."
                 ],
-                projects: [
-                    "Projects lead your tracker. You're not just doing tasks — you're building things. That's a different level.",
-                    "Your habit data shows projects at the top. Every project task you complete is a brick in something larger than a to-do list.",
-                    "I've tracked your completions. Projects are where you show up most. You're a builder, and your data proves it.",
-                    "Projects category dominating your habits. You think in systems and outcomes. That's how things actually get made.",
-                    "Your most completed category is projects. That means you're someone who finishes what they start. Rare.",
-                    "Projects lead your tracker. You're not just managing your life — you're creating things in it."
+                finance: [
+                    "Your financial discipline is building real security. Keep it up!",
+                    "Money goals? You're tackling them head-on. That takes courage.",
+                    "Every financial task is a step toward the freedom you deserve.",
+                    "You're playing the long game with your finances, and it's paying off.",
+                    "Smart with your money, smart with your time — you're winning on all fronts.",
+                    "Financial wellness is wellness too. And you're nailing it."
+                ],
+                social: [
+                    "You invest in your relationships, and that makes you richer than any task list.",
+                    "Social tasks done! Connection is the real currency of a good life.",
+                    "You show up for the people in your life. That's something special.",
+                    "Your social energy is a gift — to yourself and everyone around you.",
+                    "Relationships take work, and you put in the effort. That's admirable.",
+                    "Community, connection, belonging — you're building all of it."
+                ],
+                personal: [
+                    "Personal growth is the most important kind, and you're all in.",
+                    "You invest in yourself every single day. That compounds over time.",
+                    "Your commitment to becoming a better version of yourself is inspiring.",
+                    "Personal tasks are the ones that matter most — and you never skip them.",
+                    "You're doing the inner work. That's the hardest and most rewarding kind.",
+                    "Every personal goal you hit is a step toward the life you want."
                 ],
                 errands: [
-                    "Errands lead your tracker. You tackle the boring stuff with the same energy as the big stuff — and that's a seriously underrated skill.",
-                    "Your habit data shows errands at the top. Every errand crossed off is one less thing living rent-free in your head.",
-                    "I've tracked your completions. Errands are where you show up most. Life admin conquered means more space for what actually matters.",
-                    "Errands category leading your habits. You don't let the small stuff pile up. That's how you stay ahead.",
-                    "Your most completed category is errands. That means your life runs smoothly because you make it run smoothly.",
-                    "Errands lead your tracker. Boring tasks, brilliant results. You make it look easy."
+                    "Errands done! The boring stuff handled means more space for the exciting stuff.",
+                    "You tackle the mundane with the same energy as the big stuff. Respect.",
+                    "Life admin conquered! You're clearing the path for what really matters.",
+                    "Every errand crossed off is one less thing living rent-free in your head.",
+                    "You don't let the small stuff pile up. That's a seriously underrated skill.",
+                    "Boring tasks, brilliant results. You make it look easy."
+                ],
+                digital: [
+                    "Digital tasks done! Your online life is as organized as your real one.",
+                    "Tech-savvy and task-savvy — you're operating on another level.",
+                    "Your digital discipline is keeping everything running smoothly.",
+                    "Inbox zero? Organized files? You're a digital legend.",
+                    "You manage your digital world like a pro. That's a real skill.",
+                    "Online tasks handled! Your virtual space is as sharp as your focus."
                 ],
                 default: [
-                    "I've been tracking your habits. You're building real consistency — the kind that changes things over time.",
-                    "Your habit data is growing. Every task you complete is a data point that tells me who you're becoming.",
-                    "I can see your patterns forming in the tracker. Consistency is your superpower. Never underestimate it.",
-                    "Your habit stats are telling a story. It's a good one. Keep writing it.",
-                    "The tracker doesn't lie — you're showing up. That's the whole game.",
-                    "Small actions, repeated daily — your habit data is proof that you understand this better than most."
+                    "You're really building a great habit here. Consistency is everything!",
+                    "I'm so impressed with your dedication to this. Keep it up!",
+                    "Another one in the books! You're creating real momentum.",
+                    "Your consistency is your superpower. Never underestimate it.",
+                    "Habit by habit, you're becoming the person you want to be.",
+                    "Small actions, repeated daily — that's how legends are made."
                 ]
             },
+
             // ─── Battle-mode contextual dialogue ─────────────────────────────────
             // Shown when battle mode is active. Enemy-specific lines fire when
             // window.battleManager.enemy.name matches the key.
@@ -7840,39 +7834,6 @@ input:checked + .toggle-slider:before {
             } catch (_) { return null; }
         }
 
-        // ─── Helper: read writing tracker data for context-aware dialogue ─────────
-        function getDominantWriting() {
-            try {
-                const raw = localStorage.getItem('writingTrackerData_v3');
-                if (!raw) return null;
-                const data = JSON.parse(raw);
-                if (!data || !data.sessions || data.sessions.length === 0) return null;
-                return {
-                    totalWords:    data.totalWords   || 0,
-                    totalSessions: data.sessions.length,
-                    bestSession:   data.bestSession  || 0,
-                    novelTitle:    data.novelTitle   || '',
-                    genre:         data.genre        || '',
-                    wordGoal:      data.wordGoal     || 80000,
-                    streak: (function() {
-                        const days = [...new Set(data.sessions.map(s => s.date.slice(0,10)))].sort().reverse();
-                        let streak = 0, cursor = new Date(); cursor.setHours(0,0,0,0);
-                        for (const day of days) {
-                            const d = new Date(day); d.setHours(0,0,0,0);
-                            const diff = Math.round((cursor - d) / 86400000);
-                            if (diff === 0 || diff === 1) { streak++; cursor = d; } else break;
-                        }
-                        return streak;
-                    })(),
-                    recentMood: (function() {
-                        const withMood = data.sessions.filter(s => s.mood).slice(-5);
-                        if (!withMood.length) return null;
-                        return withMood[withMood.length - 1].mood;
-                    })()
-                };
-            } catch (_) { return null; }
-        }
-
         // ─── Helper: get the name of the current battle enemy ────────────────────
         function getCurrentEnemyName() {
             try {
@@ -7933,32 +7894,6 @@ input:checked + .toggle-slider:before {
                         || DIALOGUE_DATABASE.habits.default;
                     return getRandomWithoutRepeat(habitPhrases);
                 }
-                case 'writing': {
-                    const wd = data.writingData || getDominantWriting();
-                    if (!wd) return getDialogueForContext('idle');
-                    const pool = [];
-                    const title = wd.novelTitle ? ('"' + wd.novelTitle + '"') : 'your novel';
-                    const pct = wd.wordGoal > 0 ? Math.round((wd.totalWords / wd.wordGoal) * 100) : 0;
-                    pool.push("You've written " + wd.totalWords.toLocaleString() + " words. That's a real book taking shape.");
-                    pool.push(wd.totalSessions + " writing sessions logged. Every single one counts.");
-                    pool.push("Your best session was " + wd.bestSession.toLocaleString() + " words. I remember that day.");
-                    if (wd.novelTitle) pool.push(title + " — I've been watching it grow. Keep going.");
-                    if (pct > 0) pool.push("You're " + pct + "% of the way to your word goal. That's not nothing. That's " + wd.totalWords.toLocaleString() + " words of something real.");
-                    if (wd.streak >= 7) pool.push(wd.streak + " days writing in a row. That's not a habit anymore — that's an identity.");
-                    else if (wd.streak >= 3) pool.push(wd.streak + "-day writing streak. The momentum is building. Don't let it break.");
-                    else if (wd.streak >= 1) pool.push("You wrote today. That's the whole job. Everything else is bonus.");
-                    if (wd.recentMood === '🔥 In the zone') pool.push("Your last session mood was in the zone. I want more of those for you.");
-                    else if (wd.recentMood === '😴 Tired but showed up') pool.push("You logged tired but showed up last session. That's the most honest and impressive thing a writer can do.");
-                    else if (wd.recentMood === '🤔 Struggled but pushed') pool.push("You struggled last session but pushed through anyway. That's what separates writers who finish from writers who don't.");
-                    if (wd.genre) pool.push("A " + wd.genre + " novel. I've been watching the word count climb. Your readers are going to love this.");
-                    if (wd.totalWords >= 50000) pool.push("Over 50,000 words. You've written a NaNoWriMo. That's a real achievement.");
-                    else if (wd.totalWords >= 10000) pool.push("Past 10,000 words. You've crossed the threshold where most writers quit. You didn't.");
-                    else if (wd.totalWords >= 1000) pool.push("Over 1,000 words written. The story has started. It exists because you made it exist.");
-                    pool.push("Every word you write is a word that didn't exist before you wrote it. That's creation.");
-                    pool.push("The first draft doesn't have to be perfect — it just has to exist. You're making it exist.");
-                    pool.push("Writers who show up every day are the ones who finish. Your tracker says you're one of them.");
-                    return getRandomWithoutRepeat(pool);
-                }
                 case 'battle': {
                     const enemyName = data.enemyName || getCurrentEnemyName();
                     const enemyPhrases = (enemyName && DIALOGUE_DATABASE.battle[enemyName])
@@ -7998,17 +7933,16 @@ input:checked + .toggle-slider:before {
         function _pickPeriodicContext() {
             const level = gameState.level || 1;
             const inBattle = window.battleModeEnabled && window.battleManager && window.battleManager.inBattle;
-            const hasMood    = !!getDominantMood();
-            const hasHabit   = !!getDominantHabit();
-            const hasWriting = !!getDominantWriting();
+            const hasMood  = !!getDominantMood();
+            const hasHabit = !!getDominantHabit();
 
             // Build a weighted pool of context types based on what data is available
             const pool = ['idle'];
-            if (hasMood)    pool.push('mood',    'mood');    // 2x weight
-            if (hasHabit)   pool.push('habit',   'habit');   // 2x weight
-            if (hasWriting) pool.push('writing', 'writing'); // 2x weight — core feature of this edition
-            if (inBattle)   pool.push('battle',  'battle');  // 2x weight when in battle
-            if (level >= 15) pool.push('funFact');            // bonus for high-level
+            if (hasMood)  pool.push('mood',  'mood');   // 2x weight
+            if (hasHabit) pool.push('habit', 'habit');  // 2x weight
+            if (inBattle) pool.push('battle','battle'); // 2x weight when in battle
+            if (level >= 15) pool.push('funFact');      // bonus for high-level
+
             // Pick from pool using rotation index to avoid pure randomness
             _dialogueRotationIndex = (_dialogueRotationIndex + 1) % pool.length;
             return pool[_dialogueRotationIndex];
@@ -10196,7 +10130,7 @@ input:checked + .toggle-slider:before {
                 cost: 40,
                 effect: 'heal',
                 value: 50,
-                levelRequired: 10  // Unlocks at Level 10   // Unlocks with Sentry Drone & Flying Procrastinator
+                levelRequired: 8   // Unlocks with Sentry Drone & Flying Procrastinator
             },
             defense_refill: {
                 id: 'defense_refill',
@@ -10246,28 +10180,26 @@ input:checked + .toggle-slider:before {
                 id: 'fireball',
                 name: 'Fireball',
                 emoji: '🔥',
-                description: 'Explosive projectile dealing 25-30 damage (Max: 10)',
+                description: 'Explosive projectile dealing 15-20 damage (Max: 10)',
                 cost: 45,
                 effect: 'attack',
-                value: 30,
-                minDamage: 25,
-                maxDamage: 30,
-                levelRequired: 15, // Unlocks at Level 15,  // Unlocks with Sentry Drone & Flying Procrastinator
+                value: 20,
+                minDamage: 15,
+                maxDamage: 20,
+                levelRequired: 8,  // Unlocks with Sentry Drone & Flying Procrastinator
                 maxQuantity: 10
             },
             spark: {
                 id: 'spark',
                 name: 'Spark',
                 emoji: '⚡',
-                description: 'Lightning strike dealing 28-35 damage + stuns enemy for 1 turn (Max: 10)',
+                description: 'Melee strike dealing 18-25 damage (Max: 10)',
                 cost: 50,
                 effect: 'attack',
-                value: 35,
-                minDamage: 28,
-                maxDamage: 35,
-                stunEnemy: true,
-                stunTurns: 1,
-                levelRequired: 17, // Unlocks at Level 17
+                value: 25,
+                minDamage: 18,
+                maxDamage: 25,
+                levelRequired: 8,  // Unlocks with Sentry Drone & Flying Procrastinator
                 maxQuantity: 10
             },
             invisibility_cloak: {
@@ -10277,7 +10209,7 @@ input:checked + .toggle-slider:before {
                 description: 'Allows your monster to evade the next enemy attack',
                 cost: 40,
                 effect: 'evade',
-                levelRequired: 12  // Unlocks at Level 12   // Unlocks with Sentry Drone (stun beam threat)
+                levelRequired: 8   // Unlocks with Sentry Drone (stun beam threat)
             },
             freeze: {
                 id: 'freeze',

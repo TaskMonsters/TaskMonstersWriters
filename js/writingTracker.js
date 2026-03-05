@@ -121,6 +121,98 @@
         }
     }
 
+    // ── Milestone gold banner ────────────────────────────────
+    function showMilestoneBanner(milestone) {
+        try {
+            // Inject styles once
+            if (!document.getElementById('writingMilestoneBannerStyles')) {
+                const style = document.createElement('style');
+                style.id = 'writingMilestoneBannerStyles';
+                style.textContent = `
+                    @keyframes wmbSlideIn {
+                        from { opacity: 0; transform: translateY(-100%); }
+                        to   { opacity: 1; transform: translateY(0); }
+                    }
+                    @keyframes wmbSlideOut {
+                        from { opacity: 1; transform: translateY(0); }
+                        to   { opacity: 0; transform: translateY(-100%); }
+                    }
+                    @keyframes wmbShimmer {
+                        0%   { background-position: -200% center; }
+                        100% { background-position: 200% center; }
+                    }
+                    @keyframes wmbPulse {
+                        0%, 100% { box-shadow: 0 4px 24px rgba(251,191,36,0.5), 0 0 0 0 rgba(251,191,36,0.4); }
+                        50%      { box-shadow: 0 4px 32px rgba(251,191,36,0.8), 0 0 0 8px rgba(251,191,36,0); }
+                    }
+                    #writingMilestoneBanner {
+                        position: fixed;
+                        top: 0; left: 0; width: 100%;
+                        z-index: 99999;
+                        pointer-events: none;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 12px;
+                        padding: 14px 24px;
+                        background: linear-gradient(135deg, #92400e 0%, #d97706 25%, #f59e0b 50%, #fbbf24 75%, #d97706 100%);
+                        background-size: 300% auto;
+                        border-bottom: 3px solid #fbbf24;
+                        box-shadow: 0 4px 24px rgba(251,191,36,0.5);
+                        animation:
+                            wmbSlideIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both,
+                            wmbShimmer 2.5s linear infinite,
+                            wmbPulse 1.8s ease-in-out infinite;
+                    }
+                    #writingMilestoneBanner .wmb-icon { font-size: 26px; line-height: 1; flex-shrink: 0; }
+                    #writingMilestoneBanner .wmb-text { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+                    #writingMilestoneBanner .wmb-title {
+                        font-size: 1.1rem; font-weight: 900; letter-spacing: 3px;
+                        text-transform: uppercase; color: #1a1410;
+                        text-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 -1px 0 rgba(0,0,0,0.2);
+                    }
+                    #writingMilestoneBanner .wmb-sub {
+                        font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+                        color: #78350f; text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+                    }
+                    #writingMilestoneBanner.wmb-exit {
+                        animation: wmbSlideOut 0.35s ease-in forwards !important;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // Remove any existing milestone banner
+            const existing = document.getElementById('writingMilestoneBanner');
+            if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+            const banner = document.createElement('div');
+            banner.id = 'writingMilestoneBanner';
+            banner.innerHTML = `
+                <span class="wmb-icon">${milestone.badge}</span>
+                <div class="wmb-text">
+                    <span class="wmb-title">Milestone Unlocked!</span>
+                    <span class="wmb-sub">${milestone.label} — Keep writing! ✍️</span>
+                </div>
+                <span class="wmb-icon">${milestone.badge}</span>
+            `;
+            document.body.appendChild(banner);
+
+            // Auto-remove after 4 seconds
+            setTimeout(() => {
+                if (banner && banner.parentNode) {
+                    banner.classList.add('wmb-exit');
+                    setTimeout(() => {
+                        if (banner && banner.parentNode) banner.parentNode.removeChild(banner);
+                    }, 380);
+                }
+            }, 4000);
+
+        } catch (err) {
+            console.warn('[WritingTracker] Could not show milestone banner:', err);
+        }
+    }
+
     // ── Full UI refresh ──────────────────────────────────────
     function refreshUI() {
         const data = loadData();
@@ -407,10 +499,29 @@
         refreshUI();
         showWritingNotification(`✍️ +${words.toLocaleString()} words logged!`);
 
-        // Check for newly earned milestone
+        // ── XP gain from writing session ──────────────────────
+        // Formula: 1 XP per 50 words + 1 XP per 10 minutes (min 1 XP, max 50 XP per session)
+        const xpFromWords   = Math.floor(words / 50);
+        const xpFromMinutes = Math.floor((minutes || 0) / 10);
+        const xpGained      = Math.max(1, Math.min(50, xpFromWords + xpFromMinutes));
+        if (typeof window.addJerryXP === 'function') {
+            window.addJerryXP(xpGained);
+            setTimeout(() => showWritingNotification(`⭐ +${xpGained} XP earned from writing!`), 600);
+        }
+
+        // ── Milestone check ───────────────────────────────────
         const newBadge = MILESTONES.find(m => prevTotal < m.words && data.totalWords >= m.words);
         if (newBadge) {
-            setTimeout(() => showWritingNotification(`${newBadge.badge} Milestone unlocked: ${newBadge.label}! 🎉`), 1200);
+            setTimeout(() => {
+                showWritingNotification(`${newBadge.badge} Milestone unlocked: ${newBadge.label}! 🎉`);
+                // Fire confetti twice (matching level-up behaviour)
+                if (typeof window.fireConfetti === 'function') {
+                    window.fireConfetti();
+                    setTimeout(() => window.fireConfetti(), 1200);
+                }
+                // Show gold milestone banner
+                showMilestoneBanner(newBadge);
+            }, 1200);
         }
 
         // Monster dialogue
